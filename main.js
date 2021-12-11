@@ -21,13 +21,9 @@ client.once("ready", () => {
   console.log("I am ready!");
 });
 
-//User ID: KEN: 416485183236210689
-//Tyler: 300296492122374145
 
 client.on("messageCreate", (message) => {
-  // if(message.author.id === '300296492122374145'){
-  //   message.channel.send(`You're a beta Genji. Not even Masters. Yikes.`)
-  // }
+
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).split(" ");

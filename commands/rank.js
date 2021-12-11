@@ -7,10 +7,10 @@ module.exports = {
     let userMentions = message.mentions.members
     let BattleTag = "";
     if(!args[0]) return message.reply("Please provide a BattleTag [name#tag] (case sensitive)")
-    if(userMentions.has('300296492122374145'))BattleTag="Shock-12929"
-    else if(userMentions.has('416485183236210689'))BattleTag="SangWoo-11405"
-    else if(userMentions.has('182205284746264576'))BattleTag="GOON-11820"
-    else if(userMentions.has('463490012604792843'))BattleTag="Lerando-1988"
+    if(userMentions.has(process.env.AKUMA_ID))BattleTag="Shock-12929"
+    else if(userMentions.has(process.env.KEN_ID))BattleTag="SangWoo-11405"
+    else if(userMentions.has(process.env.GOON_ID))BattleTag="GOON-11820"
+    else if(userMentions.has(process.env.LERANDO_ID))BattleTag="Lerando-1988"
     else{
       if(!args[0].includes("#"))return message.reply("Please provide a valid battle tag in the format [name#tag] (case sensitive)")
       BattleTag = args[0].replace("#","-")

@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-const prefix = ".";
+const prefix = "!";
 
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 client.commands = new Discord.Collection();
@@ -27,7 +27,6 @@ client.on("messageCreate", (message) => {
   // if(message.author.id === '300296492122374145'){
   //   message.channel.send(`You're a beta Genji. Not even Masters. Yikes.`)
   // }
-
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).split(" ");
@@ -37,20 +36,13 @@ client.on("messageCreate", (message) => {
     message.channel.send(`Who are you?\n${message.author}...\nYeah no, don't talk to me.`);
     return
   }
-  //300296492122374145
+
   try {
     client.commands.get(command).execute(message, args, Discord, client)
   } catch (error) {
     message.reply("What command is that?")
   }
 
-  // if (command === "ping") {
-  //   client.commands.get("ping").execute(message);
-  // }
-
-  // if (command === "command") {
-  //   client.commands.get("command").execute(message, args, Discord);
-  // }
 
 });
 

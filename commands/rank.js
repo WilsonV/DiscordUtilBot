@@ -4,6 +4,17 @@ module.exports = {
   name: 'rank',
   description: 'Embed',
   async execute(message, args, Discord, client) {
+    let userMentions = message.mentions.members
+    let BattleTag = "";
+    if(!args[0]) return message.reply("Please provide a BattleTag [name#tag] (case sensitive)")
+    if(userMentions.has('300296492122374145'))BattleTag="Shock-12929"
+    else if(userMentions.has('416485183236210689'))BattleTag="SangWoo-11405"
+    else if(userMentions.has('182205284746264576'))BattleTag="GOON-11820"
+    else if(userMentions.has('463490012604792843'))BattleTag="Lerando-1988"
+    else{
+      if(!args[0].includes("#"))return message.reply("Please provide a valid battle tag in the format [name#tag] (case sensitive)")
+      BattleTag = args[0].replace("#","-")
+    }
     try {
       const displaySRWithIcon =(sr)=>{
         let rank = "bronze";
@@ -18,31 +29,28 @@ module.exports = {
         const rankEmoji = client.emojis.cache.find(emoji => emoji.name === "rank_"+rank).toString()
         return rankEmoji+String(sr)
       }
-      const { data } = await axios.get('https://ow-api.com/v1/stats/pc/us/Shock-12929/profile')
+      const { data } = await axios.get(`https://ow-api.com/v1/stats/pc/us/${BattleTag}/profile`)
       //console.log(data)
 
       const newEmbed = new Discord.MessageEmbed()
         .setTimestamp(Date.now())
         .setColor("#ff000")
-        .setTitle(`${data.name.toUpperCase()}' Rank`)
-        //.setURL('https://google.com/')
-        .setDescription(`${data.name.toUpperCase()}'s Overwatch Rank`)
-        .addFields(
-          { name: 'Tank SR', value: displaySRWithIcon(data.ratings[0].level), inline: true },
-          { name: 'DPS SR', value: displaySRWithIcon(data.ratings[1].level), inline: true },
-          { name: 'Support SR', value: displaySRWithIcon(data.ratings[2].level), inline: true },
-          // { name: 'Open Queue SR', value: String(data.rating), inline: true },
-
-          { name: 'Win Rate', value: `${String(data.competitiveStats.games.won)}/${String(data.competitiveStats.games.played)}`, inline: true },
-          // { name: 'Gold Medals', value: String(data.competitiveStats.awards.medalsGold), inline: true },
-        )
-        // .setThumbnail('https://assets2.rockpapershotgun.com/overwatch-2-new-mccree.jpg/BROK/thumbnail/1600x800/format/jpg/quality/80/overwatch-2-new-mccree.jpg')
+        .setTitle(`${data.name.toUpperCase().split("#")[0]}' Rank`)
+        .setDescription(`${data.name.toUpperCase().split("#")[0]}'s Overwatch Rank`)
         .setThumbnail(data.icon)
-      // .setFooter(`Meh`)
+
+        if(data.ratings){
+          for(const rating of data.ratings){
+            newEmbed.addField(rating.role.toUpperCase()+" SR", displaySRWithIcon(rating.level), true)
+          }
+          newEmbed.addField("Win Rate", String(data.competitiveStats.games.won)+"/"+String(data.competitiveStats.games.played), true)
+        }
+
       message.channel.send({ embeds: [newEmbed] })
+      message.delete()
     } catch (error) {
       console.log(error)
-      message.reply("Yeah...some error happened.")
+      message.reply("Fail to get overwatch information.")
     }
   }
 }

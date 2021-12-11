@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const fs = require("fs");
+require('dotenv').config()
 
 const prefix = "!";
 
@@ -46,4 +47,4 @@ client.on("messageCreate", (message) => {
 
 });
 
-client.login("OTE5MDYzMTI3NDQ0ODE1OTUy.YbQWPA.0QaCXED8QEQFOV_YtaJ5mmHtU-k");
+client.login(process.env.BOT_KEY);

@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-const prefix = "-";
+const prefix = ".";
 
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 client.commands = new Discord.Collection();
@@ -33,20 +33,24 @@ client.on("messageCreate", (message) => {
   const args = message.content.slice(prefix.length).split(" ");
   const command = args.shift().toLowerCase();
 
-  // if (!message.member.roles.cache.hasAny("419181559711662080", "849792288133349386")) {
-  //   message.channel.send(`Who are you?\n${message.author}...\nYeah no, don't talk to me.`);
-  //   return
-  // }
+  if (!message.member.permissions.has('ADMINISTRATOR')) {
+    message.channel.send(`Who are you?\n${message.author}...\nYeah no, don't talk to me.`);
+    return
+  }
   //300296492122374145
-
-
-  if (command === "ping") {
-    client.commands.get("ping").execute(message);
+  try {
+    client.commands.get(command).execute(message, args, Discord, client)
+  } catch (error) {
+    message.reply("What command is that?")
   }
 
-  if (command === "command") {
-    client.commands.get("command").execute(message, args, Discord);
-  }
+  // if (command === "ping") {
+  //   client.commands.get("ping").execute(message);
+  // }
+
+  // if (command === "command") {
+  //   client.commands.get("command").execute(message, args, Discord);
+  // }
 
 });
 

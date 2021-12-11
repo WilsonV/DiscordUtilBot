@@ -40,7 +40,6 @@ client.on("messageCreate", (message) => {
     message.reply("What command is that?")
   }
 
-
 });
 
 client.login(process.env.BOT_KEY);

@@ -47,7 +47,6 @@ module.exports = {
         }
 
       message.channel.send({ embeds: [newEmbed] })
-      message.delete()
     } catch (error) {
       console.log(error)
       message.reply("Fail to get overwatch information.")

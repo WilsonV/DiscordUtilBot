@@ -1,6 +1,6 @@
 module.exports = {
   name:'cls',
-  description: 'Clear messages .cls [number of messages]',
+  description: 'Clear messages !cls [number of messages]',
   async execute(message, args){
     if(!args[0]) return message.reply("Ok, but how many messages? try: .cls [number]\nOnly up to 99 Messages though.")
     if(isNaN(args[0])) return message.reply(`${args[0]}, is NOT a number. I need a number between 1 and 99`)

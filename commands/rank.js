@@ -2,7 +2,7 @@ const axios = require('axios');
 
 module.exports = {
   name: 'rank',
-  description: 'Embed',
+  description: 'Fetch overwatch rank of a battle tag.',
   async execute(message, args, Discord, client) {
     let userMentions = message.mentions.members
     let BattleTag = "";
@@ -44,6 +44,10 @@ module.exports = {
             newEmbed.addField(rating.role.toUpperCase()+" SR", displaySRWithIcon(rating.level), true)
           }
           newEmbed.addField("Win Rate", String(data.competitiveStats.games.won)+"/"+String(data.competitiveStats.games.played), true)
+        }
+
+        if(data.private === true){
+          newEmbed.addField("Private", "This profile is private")
         }
 
       message.channel.send({ embeds: [newEmbed] })

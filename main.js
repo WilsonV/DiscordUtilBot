@@ -30,7 +30,7 @@ client.on("messageCreate", (message) => {
   const command = args.shift().toLowerCase();
 
   if (!message.member.permissions.has('ADMINISTRATOR')) {
-    message.channel.send(`Who are you?\n${message.author}...\nYeah no, don't talk to me.`);
+    message.reply(`Who are you?\n${message.author}...\nYeah no, don't talk to me.`);
     return
   }
 

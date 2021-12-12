@@ -9,6 +9,7 @@
   "author": "Wilson V.",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/voice": "github:discordjs/voice",
     "axios": "^0.24.0",
     "discord.js": "^13.3.1",
     "dotenv": "^10.0.0"

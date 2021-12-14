@@ -4,7 +4,7 @@
   "description": "updates users on rank changes in overwatch",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon main"
   },
   "author": "Wilson V.",
   "license": "ISC",
@@ -12,6 +12,8 @@
     "@discordjs/voice": "github:discordjs/voice",
     "axios": "^0.24.0",
     "discord.js": "^13.3.1",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15",
+    "tasktimer": "^3.0.0"
   }
 }

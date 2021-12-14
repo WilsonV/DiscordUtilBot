@@ -1,5 +1,6 @@
 module.exports = {
   name: "cmd",
+  adminOnly: false,
   description: "Display available commands",
   execute(message,args,Discord,client){
 

@@ -1,5 +1,6 @@
 module.exports = {
   name:'cls',
+  adminOnly: true,
   description: 'Clear messages !cls [number of messages]',
   async execute(message, args){
     if(!args[0]) return message.reply("Ok, but how many messages? try: .cls [number]\nOnly up to 99 Messages though.")

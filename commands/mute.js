@@ -1,5 +1,6 @@
 module.exports = {
   name: "mute",
+  adminOnly: true,
   description: "Mutes a member",
   execute(message){
     try{

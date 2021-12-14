@@ -1,5 +1,6 @@
 module.exports = {
   name: "unmute",
+  adminOnly: true,
   description: "Un-Mutes a member",
   execute(message){
     try{

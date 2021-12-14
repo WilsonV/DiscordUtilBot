@@ -1,3 +1,9 @@
+const {
+        joinVoiceChannel,
+        createAudioPlayer,
+        createAudioResource
+      } = require('@discordjs/voice');
+
 module.exports = {
   name: "join",
   description: "Join a voice channel",
@@ -9,11 +15,7 @@ module.exports = {
     if (!permissions.has('SPEAK')) return message.reply("Do not have permission to speak.")
 
     try {
-      const {
-        joinVoiceChannel,
-        createAudioPlayer,
-        createAudioResource
-      } = require('@discordjs/voice');
+
 
       const connection = joinVoiceChannel({
         channelId: message.member.voice.channel.id,

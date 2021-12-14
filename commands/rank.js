@@ -23,6 +23,14 @@ module.exports = {
       }
     }
     try {
+
+      const roleSymbol = (role) =>{
+        if(role === 'tank')return "<:tank:920408172454375525> "
+        if(role === 'damage')return "<:damage:920408220986667068> "
+        if(role === 'support')return "<:support:920408246219583568> "
+
+        return ""
+      }
       const displaySRWithIcon =(icon,sr)=>{
         icon = icon.toLowerCase()
         let rank = "bronze";
@@ -33,13 +41,6 @@ module.exports = {
         if(icon.includes("diamond")) rank = "diamond"
         if(icon.includes("master")) rank = "master"
         if(icon.includes("grandmaster")) rank = "grandmaster"
-
-        // if(sr>=4000)rank="grandmaster"
-        // else if(sr>=3500)rank="master"
-        // else if(sr>=3000)rank="diamond"
-        // else if(sr>=2500)rank="platinum"
-        // else if(sr>=2000)rank="gold"
-        // else if(sr>=1500)rank="silver"
 
         const rankEmoji = client.emojis.cache.find(emoji => emoji.name === "rank_"+rank).toString()
         return rankEmoji+String(sr)
@@ -56,12 +57,12 @@ module.exports = {
 
         if(data.ratings){
           for(const rating of data.ratings){
-            if(rating.role === 'tank')trackingInfos.prevTank = rating.level
-            if(rating.role === 'damage')trackingInfos.prevDamage = rating.level
-            if(rating.role === 'support')trackingInfos.prevSupport = rating.level
-            newEmbed.addField(rating.role.toUpperCase()+" SR",displaySRWithIcon(rating.rankIcon,rating.level), true)
+            if(rating.role === 'tank')trackingInfos.prevTank = {level: rating.level, rankIcon: rating.rankIcon}
+            if(rating.role === 'damage')trackingInfos.prevDamage = {level: rating.level, rankIcon: rating.rankIcon}
+            if(rating.role === 'support')trackingInfos.prevSupport = {level: rating.level, rankIcon: rating.rankIcon}
+            newEmbed.addField(roleSymbol(rating.role)+ rating.role.toUpperCase()+" SR",displaySRWithIcon(rating.rankIcon,rating.level), true)
           }
-          trackingInfos.gamesPlayer = data.competitiveStats.games.played
+          trackingInfos.gamesPlayed = data.competitiveStats.games.played
           newEmbed.addField("Win Rate", String(data.competitiveStats.games.won)+"/"+String(data.competitiveStats.games.played), true)
         }
 

@@ -27,9 +27,10 @@ module.exports = {
       channel: message.channel,
       battleTag: args[0],
       gamesPlayed: 0,
-      prevTank: 0,
-      prevDamage: 0,
-      prevSupport: 0,
+      prevTank: {level: 0, rankIcon: ""},
+      prevDamage: {level: 0, rankIcon: ""},
+      prevSupport: {level: 0, rankIcon: ""},
+      character: '',
       track: false,
     }
   }

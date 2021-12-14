@@ -14,7 +14,16 @@ module.exports = {
     const iterator = client.commands.entries();
 
     for(const command of iterator){
-      embedMsg.addField(command[1].name,command[1].description,false)
+      //Index 1 because index 0 is a the key (file name) of the command
+      if(command[1].adminOnly){
+        if(message.member.permissions.has('ADMINISTRATOR')){
+          embedMsg.addField(command[1].name,command[1].description,false)
+        }
+
+      }else{
+        embedMsg.addField(command[1].name,command[1].description,false)
+      }
+
     }
 
     message.reply({embeds: [embedMsg]});

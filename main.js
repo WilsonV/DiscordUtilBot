@@ -54,7 +54,7 @@ rankTrackTimer.start()
 
 ////ONCE ONLINE
 client.once("ready", () => {
-  console.log("I am ready!");
+  console.log("I am online! Woot! Yay!");
 });
 
 
@@ -65,17 +65,18 @@ client.on("messageCreate", (message) => {
     if (Math.floor(Math.random() * 100) === 1) message.reply("https://tenor.com/view/ash-cap-throw-catch-pokemon-gif-19138383")
   }
 
-  if (!message.content.startsWith(prefix) || message.author.bot)return;
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
   const args = message.content.slice(prefix.length).split(" ");
   const command = args.shift().toLowerCase();
 
-  if (client.commands.get(command).adminOnly && !message.member.permissions.has('ADMINISTRATOR')) {
-    message.reply("https://tenor.com/view/perms-no-perms-gif-19925400")
-    //message.reply(`Who are you?\n${message.author}...\nYeah no, don't talk to me.`);
-    return
-  }
+
 
   try {
+
+    if (client.commands.get(command).adminOnly && !message.member.permissions.has('ADMINISTRATOR')) {
+      return message.reply("https://tenor.com/view/perms-no-perms-gif-19925400")
+    }
+
     client.commands.get(command).execute(message, args, Discord, client, userBattleTags)
   } catch (error) {
     console.log(error)

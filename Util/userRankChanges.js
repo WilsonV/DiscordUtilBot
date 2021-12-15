@@ -58,7 +58,7 @@ async function checkUserChanges(user, Discord, client){
       user.gamesPlayed = data.competitiveStats.games.played
       if(data.ratings){
         for(const rating of data.ratings){
-          console.log(rating)
+
           if(tankDiff && rating.role === "tank"){
             console.log(user)
             newEmbed.addField(rating.role.toUpperCase()+" SR",displaySRWithIcon(user.prevTank.rankIcon,user.prevTank.level, client)+" -> "+displaySRWithIcon(rating.rankIcon,rating.level, client), true)
@@ -87,7 +87,7 @@ async function checkUserChanges(user, Discord, client){
       }
 
       user.channel.send({ embeds: [newEmbed] })
-      await getCharacterStats(user, Discord)
+      if(user.character)await getCharacterStats(user, Discord)
     }catch(error){
       console.log(error)
       user.channel.send("Fail to get overwatch information from tracking.")

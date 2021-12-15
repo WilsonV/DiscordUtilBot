@@ -18,7 +18,8 @@ module.exports = {
 
     //check if user already has a tag set already, if so switch it
     if (userBattleTags[userId]) {
-      message.reply(`Your battle tag has been switched from ${userBattleTags[userId].battletag}, to ${args[0]}`)
+      //console.log("already exist battletag",userBattleTags[userId])
+      message.reply(`Your battle tag has been switched from ${userBattleTags[userId].battleTag}, to ${args[0]}`)
     } else {
       message.reply(`Your battle tag is now ${args[0]}`)
     }

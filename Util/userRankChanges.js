@@ -1,4 +1,5 @@
 const axios = require('axios');
+const getCharacterStats = require('../Util/userCharacterStats');
 
 
 const displaySRWithIcon =(icon,sr,client)=>{
@@ -57,7 +58,9 @@ async function checkUserChanges(user, Discord, client){
       user.gamesPlayed = data.competitiveStats.games.played
       if(data.ratings){
         for(const rating of data.ratings){
+          console.log(rating)
           if(tankDiff && rating.role === "tank"){
+            console.log(user)
             newEmbed.addField(rating.role.toUpperCase()+" SR",displaySRWithIcon(user.prevTank.rankIcon,user.prevTank.level, client)+" -> "+displaySRWithIcon(rating.rankIcon,rating.level, client), true)
             //update previous data for next check
             user.prevTank.level = rating.level
@@ -84,6 +87,7 @@ async function checkUserChanges(user, Discord, client){
       }
 
       user.channel.send({ embeds: [newEmbed] })
+      await getCharacterStats(user, Discord)
     }catch(error){
       console.log(error)
       user.channel.send("Fail to get overwatch information from tracking.")

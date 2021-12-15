@@ -9,7 +9,7 @@ const prefix = "!";
 const userBattleTags = {};
 
 
-const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", 'GUILD_VOICE_STATES'] });
+const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 client.commands = new Discord.Collection();
 
 const commandFiles = fs

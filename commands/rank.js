@@ -46,7 +46,7 @@ module.exports = {
         return rankEmoji+String(sr)
       }
       const { data } = await axios.get(`https://ow-api.com/v1/stats/pc/us/${battleTag}/profile`)
-      console.log(data)
+      //console.log(data)
 
       const newEmbed = new Discord.MessageEmbed()
         .setTimestamp(Date.now())

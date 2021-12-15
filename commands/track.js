@@ -1,4 +1,5 @@
 const getRank = require('./rank')
+const getCharacterStats = require('../Util/userCharacterStats')
 const availableCharacters = ['ana','ashe','baptiste','bastion','brigitte','cassidy','dva','doomfist','echo','genji','hanzo','junkrat','lucio','mei','mercy','moira','orisa','pharah','reaper','reinhardt','roadhog','sigma','soldier76','sombra','symmetra','torbjorn','tracer','widowmaker','winston','wreckingball','zarya','zenyatta']
 
 module.exports = {
@@ -19,7 +20,12 @@ module.exports = {
     userBattleTags[message.member.id].channel = message.channel;
     const {gamesPlayed, prevTank, prevDamage, prevSupport} = await getRank.execute(message, '', Discord, client, userBattleTags)
 
-    userBattleTags[message.member.id] = {...userBattleTags[message.member.id], gamesPlayed, prevTank, prevDamage, prevSupport}
+    if(userBattleTags[message.member.id].character){
+      // const { deathsAvgPer10Min, eliminationsAvgPer10Min, eliminationsPerLife, healingDoneAvgPer10Min, heroDamageDoneAvgPer10Min } =
+      await getCharacterStats(userBattleTags[message.member.id], Discord)
+    }
+
+    userBattleTags[message.member.id] = {...userBattleTags[message.member.id], gamesPlayed, prevTank: {level: 2000, rankIcon: "gold"}, prevDamage, prevSupport}
     // userBattleTags[message.member.id].gamesPlayed = gamesPlayed
     // userBattleTags[message.member.id].prevTank = prevTank
     // userBattleTags[message.member.id].prevDamage = prevDamage

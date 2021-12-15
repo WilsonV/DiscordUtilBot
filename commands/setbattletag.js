@@ -32,6 +32,12 @@ module.exports = {
       prevSupport: {level: 0, rankIcon: ""},
       character: '',
       track: false,
+      deathsAvgPer10Min: 0,
+      eliminationsAvgPer10Min: 0,
+      eliminationsPerLife: 0,
+      healingDoneAvgPer10Min: 0,
+      heroDamageDoneAvgPer10Min: 0
+
     }
   }
 

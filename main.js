@@ -22,16 +22,6 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-//Dummy value for testing tracking
-// userBattleTags['416485183236210689'] = {
-//   channel: client.channels.cache.get('919064511338655757'),
-//   battleTag: 'SangWoo#11405',
-//   gamesPlayed: 0,
-//   prevTank: {level: 2119, rankIcon: "gold"},
-//   prevDamage: {level: 0, rankIcon: ""},
-//   prevSupport: {level: 0, rankIcon: ""},
-//   track: true,
-// }
 
 ///TASK TIMER
 const rankTrackTimer = new TaskTimer(60000)
@@ -73,14 +63,18 @@ client.on("messageCreate", (message) => {
 
   try {
 
+    if(!client.commands.has(command)){
+      return message.reply("That's NOT a command.")
+    }
     if (client.commands.get(command).adminOnly && !message.member.permissions.has('ADMINISTRATOR')) {
-      return message.reply("https://tenor.com/view/perms-no-perms-gif-19925400")
+      message.reply("https://tenor.com/view/perms-no-perms-gif-19925400")
+      return
     }
 
     client.commands.get(command).execute(message, args, Discord, client, userBattleTags)
   } catch (error) {
     console.log(error)
-    message.reply("What command is that?")
+    message.reply("Error: What command is that?")
   }
 
 });

@@ -4,7 +4,7 @@
   "description": "updates users on rank changes in overwatch",
   "main": "main.js",
   "scripts": {
-    "start": "nodemon main"
+    "start": "echo no start script"
   },
   "author": "Wilson V.",
   "license": "ISC",

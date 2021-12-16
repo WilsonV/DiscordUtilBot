@@ -24,7 +24,7 @@ for (const file of commandFiles) {
 
 
 ///TASK TIMER
-const rankTrackTimer = new TaskTimer(60000)
+const rankTrackTimer = new TaskTimer(600000)
 
 rankTrackTimer.on('tick', async () => {
 

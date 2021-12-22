@@ -7,7 +7,7 @@ async function getCharacterStat(message, character, user, Discord){
 
   try {
     const { data } = await axios.get(`https://ow-api.com/v1/stats/pc/us/${user.battleTag.replace("#","-")}/heroes/${character}`)
-    console.log(data)
+    //console.log(data)
     if(data.private)return message.reply("This account is private!")
     const newEmbed = new Discord.MessageEmbed()
     .setTimestamp(Date.now())

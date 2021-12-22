@@ -23,6 +23,10 @@ async function checkUserChanges(user, Discord, client){
     console.log("looking up rank for "+user.battleTag)
     try{
     const { data } = await axios.get(`https://ow-api.com/v1/stats/pc/us/${user.battleTag.replace("#","-")}/profile`)
+    if(data.private){
+      user.track = false
+      return user.channel.send("This account is private!\nTracking turned off.")
+    }
     if(data.ratings){
       for(const rating of data.ratings){
         if(rating.role === "tank"){
@@ -79,7 +83,7 @@ async function checkUserChanges(user, Discord, client){
             user.prevSupport.rankIcon = rating.rankIcon
           }
         }
-        newEmbed.addField("Win Rate", String(data.competitiveStats.games.won)+"/"+String(data.competitiveStats.games.played), true)
+        newEmbed.addField("Win Rate", String(data.competitiveStats.games.won||0)+"/"+String(data.competitiveStats.games.played), true)
       }
 
       if(data.private === true){

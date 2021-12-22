@@ -1,13 +1,16 @@
 const checkUserChanges = require('./Util/userRankChanges')
+const getCharacterStat = require('./characterStat')
 const Discord = require("discord.js");
 const fs = require("fs");
 const { TaskTimer } = require('tasktimer');
+const availableCharacters = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'junkrat', 'lucio', 'mei', 'mercy', 'moira', 'orisa', 'pharah', 'reaper', 'reinhardt', 'roadhog', 'sigma', 'soldier76', 'sombra', 'symmetra', 'torbjorn', 'tracer', 'widowmaker', 'winston', 'wreckingball', 'zarya', 'zenyatta']
 
 require('dotenv').config()
 
 const prefix = "!";
 const userBattleTags = {};
 
+console.log("Hello World.");
 
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 client.commands = new Discord.Collection();
@@ -63,15 +66,21 @@ client.on("messageCreate", (message) => {
 
   try {
 
-    if(!client.commands.has(command)){
-      return message.reply("That's NOT a command.")
-    }
-    if (client.commands.get(command).adminOnly && !message.member.permissions.has('ADMINISTRATOR')) {
-      message.reply("https://tenor.com/view/perms-no-perms-gif-19925400")
-      return
-    }
+    if (availableCharacters.includes(command)) {
 
-    client.commands.get(command).execute(message, args, Discord, client, userBattleTags)
+      getCharacterStat(message, command, userBattleTags[message.member.id], Discord)
+
+    } else {
+
+      if (!client.commands.has(command)) {
+        return message.reply("That's NOT a command.")
+      }
+      if (client.commands.get(command).adminOnly && !message.member.permissions.has('ADMINISTRATOR')) {
+        message.reply("https://tenor.com/view/perms-no-perms-gif-19925400")
+        return
+      }
+      client.commands.get(command).execute(message, args, Discord, client, userBattleTags)
+    }
   } catch (error) {
     console.log(error)
     message.reply("Error: What command is that?")

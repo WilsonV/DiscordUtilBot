@@ -33,7 +33,7 @@ module.exports = {
     userBattleTags[message.member.id] = {
         ...userBattleTags[message.member.id],
         gamesPlayed,
-        prevTank: {level: 2000, rankIcon: "gold"},
+        prevTank: prevTank,
         prevDamage,
         prevSupport,
         deathsAvgPer10Min: 0,

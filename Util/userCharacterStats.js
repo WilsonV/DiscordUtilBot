@@ -21,6 +21,10 @@ async function getUserCharacterStats(user, Discord){
   try {
     const { data } = await axios.get(`https://ow-api.com/v1/stats/pc/us/${user.battleTag.replace("#","-")}/heroes/${user.character}`)
     //console.log(data)
+    if(data.private){
+      user.track = false
+      return user.channel.send("This account is private!\nTracking turned off.")
+    }
     const newEmbed = new Discord.MessageEmbed()
     .setTimestamp(Date.now())
     .setColor('#000000')
@@ -35,9 +39,9 @@ async function getUserCharacterStats(user, Discord){
       newEmbed.addField('Elims Per Life',changeInStatDisplay(user.eliminationsPerLife,characterData.average.eliminationsPerLife),true)
       newEmbed.addField('Avg. Healing',changeInStatDisplay(user.healingDoneAvgPer10Min,characterData.average.healingDoneAvgPer10Min),true)
       newEmbed.addField('Avg. Damage',changeInStatDisplay(user.heroDamageDoneAvgPer10Min,characterData.average.heroDamageDoneAvgPer10Min),true)
-      newEmbed.addField('Win Rate',`${characterData.game.gamesWon}/${characterData.game.gamesPlayed}`,true)
+      newEmbed.addField('Win Rate',`${characterData.game.gamesWon||0}/${characterData.game.gamesPlayed}`,true)
 
-    user.deathsAvgPer10Min = 1//characterData.average.deathsAvgPer10Min
+    user.deathsAvgPer10Min = characterData.average.deathsAvgPer10Min
     user.eliminationsAvgPer10Min = characterData.average.eliminationsAvgPer10Min
     user.eliminationsPerLife = characterData.average.eliminationsPerLife
     user.healingDoneAvgPer10Min = characterData.average.healingDoneAvgPer10Min || 0

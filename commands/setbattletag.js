@@ -11,7 +11,7 @@ module.exports = {
     //console.log("Values:",Object.values(userBattleTags))
     const currentUsersBattleTags = Object.values(userBattleTags)
     for(const user of currentUsersBattleTags){
-      if(user.battletag === args[0]) return message.reply("This battle tag is already claimed.")
+      if(user.battleTag === args[0]) return message.reply("This battle tag is already claimed.")
     }
 
 

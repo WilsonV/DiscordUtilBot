@@ -10,7 +10,7 @@ require('dotenv').config()
 const prefix = "!";
 const userBattleTags = {};
 
-console.log("Hello World.");
+//console.log("Hello World.");
 
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 client.commands = new Discord.Collection();

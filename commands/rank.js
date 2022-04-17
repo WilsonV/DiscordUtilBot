@@ -54,7 +54,7 @@ module.exports = {
       const newEmbed = new Discord.MessageEmbed()
         .setTimestamp(Date.now())
         .setColor("#ff000")
-        .setTitle(`${data.name.toUpperCase().split("#")[0]}' Rank`)
+        .setTitle(`${data.name.toUpperCase().split("#")[0]}'s Rank`)
         .setDescription(`${data.name.toUpperCase().split("#")[0]}'s Overwatch Rank`)
         .setThumbnail(data.icon)
 

@@ -52,10 +52,12 @@ client.once("ready", () => {
 
 
 client.on("messageCreate", (message) => {
-
   //Send a CAP meme reply to a random message as users chat.
   if (!message.author.bot && !message.content.startsWith(prefix)) {
-    if (Math.floor(Math.random() * 100) === 1) message.reply("https://tenor.com/view/ash-cap-throw-catch-pokemon-gif-19138383")
+    let chance = 1
+    if(message.author.id === '182205284746264576') chance = 20
+    if(message.author.id === '300296492122374145') chance = 85
+    if (Math.floor(Math.random() * 100) <= chance) message.reply("https://tenor.com/view/ash-cap-throw-catch-pokemon-gif-19138383")
   }
 
   if (!message.content.startsWith(prefix) || message.author.bot) return;
